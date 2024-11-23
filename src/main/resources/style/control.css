@@ -1,0 +1,91 @@
+/* Import font */
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("fonts/RobotoMono-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto Mono Medium";
+  src: url("fonts/RobotoMono-Medium.ttf");
+}
+@font-face {
+  font-family: "Roboto Slab";
+  src: url("fonts/RobotoSlab-Regular.ttf");
+}
+@font-face {
+  font-family: "Lexend";
+  src: url("fonts/Lexend-Regular.ttf");
+}
+@font-face {
+  font-family: "Lexend Medium";
+  src: url("fonts/Lexend-Medium.ttf");
+}
+@font-face {
+  font-family: "Lexend Bold";
+  src: url("fonts/Lexend-Bold.ttf");
+}
+
+.main-control {
+    -fx-padding: 5;
+    -fx-background-color: #1A1A1A;
+}
+
+.spacing {
+    -fx-spacing: 5;
+}
+
+.label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Lexend", sans-serif;
+}
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0 5;
+
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Lexend", sans-serif;
+}
+
+.button {
+    -fx-background-color: #3C3C3C;
+    -fx-border-color: #888888;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-padding: 3 5;
+
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: .9em;
+    -fx-font-family: "Lexend", serif;
+}
+
+.button:hover {
+    -fx-border-color: #AAAAAA;
+}
+
+
+.input-box {
+    -fx-padding: 5 0;
+    -fx-background-color: #232323;
+    -fx-background-radius: 5;
+}
+
+.preset-box {
+    -fx-padding: 5;
+    -fx-background-color: #232323;
+    -fx-background-radius: 5;
+    -fx-margin: 0 0 5 0;
+}
+
+.title {
+    -fx-font-family: "Lexend Medium", sans-serif;
+}
+
+.main-input {
+    -fx-font-family: "Roboto Mono Medium", monospace;
+    -fx-font-size: 2em;
+}
+
+.extend-input {
+    -fx-font-family: "Roboto Mono", monospace;
+}

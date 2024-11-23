@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "Roboto Mono Medium";
+  src: url("fonts/RobotoMono-Medium.ttf");
+}
+
+.time-label {
+    -fx-font-size: 3em;
+    -fx-font-family: "Roboto Mono Medium", monospace;
+    -fx-text-fill: #AAAAAA;
+}
+
+.time-box {
+    -fx-background-color: #232323;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+}
+
+.main-box {
+    -fx-padding: 5;
+    -fx-background-color: #1A1A1A;
+}
