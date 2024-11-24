@@ -1,10 +1,15 @@
 package dev.frays.sandyakala;
 
 import dev.frays.sandyakala.enums.TimerStatus;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class Time {
     private Scene scene;
@@ -16,6 +21,16 @@ public class Time {
 
     private Label hmSeparator;
     private Label msSeparator;
+
+    private String activeColor = "#888888";
+    private String inactiveColor = "#888888";
+    private String background = "#1E2E20";
+
+    private int hh;
+    private int mm;
+    private int ss;
+
+    private int fontSize = 6;
 
     public Time() {
         // Hour label
@@ -42,46 +57,74 @@ public class Time {
         // Label Box
         timeBox = new HBox();
         timeBox.getStyleClass().add("time-box");
+        timeBox.setAlignment(Pos.CENTER);
         timeBox.getChildren().addAll(
                 hhLabel, hmSeparator,
                 mmLabel, msSeparator, ssLabel);
 
         // Main Box
-        VBox mainBox = new VBox();
+        BorderPane mainBox = new BorderPane();
         mainBox.getStyleClass().add("main-box");
-        mainBox.getChildren().addAll(
-                timeBox);
+        BorderPane.setAlignment(timeBox, Pos.CENTER);
+        mainBox.setCenter(timeBox);
 
         // Set scene
         scene = new Scene(mainBox);
         scene.getStylesheets().add(
                 getClass().getResource("/style/time.css").toExternalForm());
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if (key.getCode() == KeyCode.EQUALS || key.getCode() == KeyCode.PLUS)
+                fontSize++;
+            else if (key.getCode() == KeyCode.MINUS)
+                fontSize--;
+
+            System.out.println("[time][font] font-size: " + fontSize);
+
+            Font newSize = Font.loadFont(getClass().getResource(
+                    "/style/fonts/RobotoMono-Medium.ttf").toExternalForm(),
+                    fontSize);
+
+            // Set time
+            styleLabel(hhLabel, hh > 0, hh);
+            styleLabel(hmSeparator, hh > 0);
+            styleLabel(mmLabel, mm > 0, mm);
+            styleLabel(msSeparator, mm > 0);
+            styleLabel(ssLabel, ss > 0, ss);
+        });
+    }
+
+    public void styleLabel(Label label, boolean active) {
+        label.setStyle(String.format(
+                "-fx-font-size: %dem; -fx-text-fill: %s;",
+                fontSize,
+                active ? activeColor : inactiveColor
+        ));
+    }
+
+    public void styleLabel(Label label, boolean active, int val) {
+        label.setText(String.format("%02d", val));
+        label.setStyle(String.format(
+                "-fx-font-size: %dem; -fx-text-fill: %s;",
+                fontSize,
+                active ? activeColor : inactiveColor
+        ));
     }
 
     public void setTime(TimerStatus status, int hh, int mm, int ss) {
-        // Set hour label
-        hhLabel.setText(String.format("%02d", hh));
-        if (hh > 0) {
-            hhLabel.setStyle(String.format("-fx-text-fill: %s", status.getColorActive()));
-            hmSeparator.setStyle(String.format("-fx-text-fill: %s", status.getColorActive()));
-        } else {
-            hhLabel.setStyle(String.format("-fx-text-fill: %s", status.getColorInactive()));
-            hmSeparator.setStyle(String.format("-fx-text-fill: %s", status.getColorInactive()));
-        }
+        // Set data
+        activeColor = status.getColorActive();
+        inactiveColor = status.getColorInactive();
+        background = status.getBackground();
+        this.hh = hh;
+        this.mm = mm;
+        this.ss = ss;
 
-        // Set minute label
-        mmLabel.setText(String.format("%02d", mm));
-        if (mm > 0) {
-            mmLabel.setStyle(String.format("-fx-text-fill: %s", status.getColorActive()));
-            msSeparator.setStyle(String.format("-fx-text-fill: %s", status.getColorActive()));
-        } else {
-            mmLabel.setStyle(String.format("-fx-text-fill: %s", status.getColorInactive()));
-            msSeparator.setStyle(String.format("-fx-text-fill: %s", status.getColorInactive()));
-        }
-
-        // Set second label
-        ssLabel.setText(String.format("%02d", ss));
-        ssLabel.setStyle(String.format("-fx-text-fill: %s", status.getColorActive()));
+        // Set time
+        styleLabel(hhLabel, hh > 0, hh);
+        styleLabel(hmSeparator, hh > 0);
+        styleLabel(mmLabel, mm > 0, mm);
+        styleLabel(msSeparator, mm > 0);
+        styleLabel(ssLabel, ss > 0, ss);
 
         // Set background color
         timeBox.setStyle(String.format("-fx-background-color: %s", status.getBackground()));

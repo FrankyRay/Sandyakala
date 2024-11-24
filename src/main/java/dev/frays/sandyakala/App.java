@@ -18,10 +18,10 @@ public class App extends Application {
         timeStage = new Stage();
         timeStage.setTitle("Time - Sandyakala");
         timeStage.setScene(time.getScene());
+        timeStage.initOwner(stage);
         timeStage.setOnHidden(event -> {
             control.showTime();
         });
-        timeStage.initOwner(stage);
 
         control = new MainCtrl(this);
         stage.setTitle("Sandyakala");
